@@ -1,0 +1,39 @@
+Hangman game for homework assignment #3.  Due 12/7/2017
+
+wins = 0
+allowedCnt = 0
+word = [words]
+guessedLtrs [letters]
+letters [letters]
+correct = 0
+
+Display form
+  Display "Press Any Key To Get Started!"
+  listen for onkeyup event
+    Clear 'to begin' message
+    Display wins = 0
+    Generate a random number and use it as index to get word from array
+      Parse word into letters and display as a horizontal, unordered list
+        create HTML tags and insert into currentWord span
+        Push parsed letters of word to letters array
+      Display number of guesses (allowedCnt) remaining where
+        initial number of guesses is 1.5 * word[].length or a minimum of 8
+      Player guesses letters - listen for onkeyup event
+        test for alpha
+        test for letter not in guessedLtrs[]
+          if in guessedLtrs[] then get new letter
+        push letter to guessedLtrs[]
+        display in 'letters already guessed'
+        decrement # of guesses remaining
+        loop through all letters in letters[]
+          if letter.key = letters[x]
+            change _ in that position to letters[]
+            correct++
+            if correct === word[].length
+              wins++
+              display wins
+          else
+            allowedCnt--
+            if allowedCnt === 0
+              display 'lose'
+            
