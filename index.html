@@ -9,10 +9,12 @@
     <link rel="stylesheet" href="assets/css/reset.css">
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   </head>
   <body>
     <div class="container-fluid">
-      <div id="header" class="jumbotron jumbotron-fluid">
+      <div id="header" class="header">
+      <!-- <div id="header" class="jumbotron jumbotron-fluid"> -->
         <div class="container-fluid">
           <h1 class="display-3 text-center">Hangman</h1>
           <p class="lead text-center">Play Hangman.  <span id="playMsg">Press any key to begin!</span></p>
@@ -31,7 +33,7 @@
           </div>
           <h5>Guesses remaining: <span id="countdown"></span></h5>
           <h4>Letters already guessed: </h4>
-          <h5><span id="guessList">?</span></h5>
+          <h5><span id="guessedLetters">?</span></h5>
         </div>
       </div>
     </div>
