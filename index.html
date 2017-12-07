@@ -14,17 +14,22 @@
   <body>
     <div class="container-fluid">
       <div id="header" class="header">
-      <!-- <div id="header" class="jumbotron jumbotron-fluid"> -->
-        <div class="container-fluid">
-          <h1 class="display-3 text-center">Hangman</h1>
-          <p class="lead text-center">Play Hangman.  <span id="playMsg">Press any key to begin!</span></p>
+        <div class="row">
+          <div class="col-sm-12">
+            <h1 class="display-3 text-center mx-5">Hangman</h1>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <button id = "button" type="button" class="btn btn-secondary btn-lg btn-block">Click to begin</button>
+          </div>
         </div>
       </div>
 
       <div class="row d-flex justify-content-center flex-wrap-reverse">
-        <div class="col-sm-4 px-5  mx-5 mb-5">
+        <!-- <div class="col-sm-4 px-5  mx-5 mb-5">
           <img src="http://via.placeholder.com/300x200" alt="image here">
-        </div>
+        </div> -->
         <div class="col-sm-6 border border-dark px-4 py-3 mx-5 mb-5 text-center">
           <h4>Wins: <span id="wins"></span></h4>
           <h3>Current word</h3>

@@ -1,22 +1,20 @@
 $(document).ready(function(){
 
   var words = ["awkward", "bungler", "corrupt", "collusion", "liar", "braggard", "glutton", "hazard", "insecure", "impeach", "simpleton", "jailtime", "unqualified", "klutz", "numbskull","unzip", "trophy", "twitter", "yacht", "imbecile", "zigzag", "grope", "zombie"];
-  var wins = 0;     // games won
+  var winsCnt = 0;     // games won
   var word = "";    // word to guess
-  var lives = 0;    // number of guesses left
+  var lives;    // number of guesses left
   var guesses ="";  // string of guessed letters
   var picked = [];
-  var rightCnt = ""; // count of correct guesses
+  var rightCnt; // count of correct guesses
+  var pick = "";
 
-
-  // get word from words[]
-  getWord = function() {
-    word = words[Math.floor(Math.random() * words.length)];
-  }
+  console.log("Variables declared.");
 
   // parse word into letters and display as a horizontal, unordered list
   // create HTML tags and insert into currentWord
   displaySpaces = function() {
+    // console.log("Begin displaySpaces.")
     var ul = document.createElement("ul"), li, tx;
     for (var i = 0; i < word.length; i++) {
       li = document.createElement("li");
@@ -28,87 +26,71 @@ $(document).ready(function(){
     }
     currentWord.innerHTML = "";
     currentWord.appendChild(ul);
+    // console.log("End displaySpaces.")
   }
 
-  // give the player more guesses than letters with a minimum of 8
-  getLives = function() {
-    lives = (Math.ceil(word.length * 1.5));
-    if (lives < 8) {
-      lives = 8;
-    }
-    countdown.innerHTML = lives;  // move number of guesses to HTML
-    // console.log(lives);
-  }
-
-  guessUL = function() {
-    var ul = document.createElement("ul");
-    ul.setAttribute('id', 'guessList');
-    ul.setAttribute('class', 'd-flex justify-content-center');
-    guessedLetters.innerHTML = "";
-    guessedLetters.appendChild(ul);
-  }
-
-  guessLI = function(x) {
-      li = document.createElement("li");
-      tx = document.createTextNode(x);
-      li.appendChild(tx);
-      guessList.appendChild(li);
-  }
-
-  checkForAlpha = function(x) {
-    var alphabet = "abcdefghijklmnopqrstuvwxyz";
-    var str = "/" + x + "/i";
-    var res = alphabet.match(str);
-    console.log("Letter: " + x + "  string: " + str + "  result: " + res);
-    if (res != null) {
-      return true;
-    }
-  }
-
-  guess = function(i){
-    document.onkeyup = function(letter){
-      checkForAlpha(letter.key)
-      if (checkForAlpha(true)){
-        for (var x = 0; x < picked.length; x++) {
-          if (letter.key === picked[x]) {
-            alert("You already chose that letter.  Pick another.");
-          }
+  checkForMatch = function(char) {
+    console.log("Begin checkForMatch()");
+    for (var j = 0; j < word.length; j++) {
+      // console.log("cFM loop" + j " word is " + word + ", char is " + char );
+      if (char === word.charAt(j)) {
+        console.log("  found a match!");
+        var ltrID = "ltr" + j;
+        document.getElementById(ltrID).innerHTML = char;
+        rightCnt++;
+        if (rightCnt === word.length){
+          alert("You won!");
+          countdown.innerHTML = "You win!";
+          button.innerHTML = "Play again";
+          winsCnt++;
+          wins.innerHTML = winsCnt;
         }
       }
-      else {
-        alert("That is not an alphabet key.  Pick another.");
-      }
-      picked.push(letter.key);
-      console.log(picked);
-
-      console.log(letter.key);
-      console.log("Guess Count: " + i);
-      countdown.innerHTML = lives - i;
-      console.log("Lives: " + lives);
-      // guesses = guesses + letter.key + " ";
-      // guessedLetters.innerHTML = guesses;
-      console.log(guesses);
-      guessLI(letter.key);
     }
+    console.log("End checkForMatch()");
+  }
+
+  guess = function(char){
+    console.log("Begin guess()");
+    guesses = guesses + char + " ";
+    guessedLetters.innerHTML = guesses;
+    checkForMatch(char);
+    console.log("End guess()");
   }
 
   // play Hangman
   playHangman = function() {
-    getWord();
+    lives = 8;
+    rightCnt = 0;
+    guesses = "";
+    guessedLetters.innerHTML = "";
+    countdown.innerHTML = lives;
+    word = words[Math.floor(Math.random() * words.length)];  // get word
+    // alert(word);
     displaySpaces();
-    getLives();
-    guessUL();
-    // for (i = 0; i < lives; i++) {
-    for (var i = lives; i > 0; i--) {
-        console.log("Lives: " + lives);
-      guess(i);
+    document.onkeyup = function(event) {
+      if (lives > 0) {
+        pick = event.key;
+        guess(pick);
+      }
+      lives--;
+      countdown.innerHTML = lives;
+      if (lives <= 0) {
+        alert("You lost!");
+        countdown.innerHTML = "You lose!";
+        button.innerHTML = "Play again";
+      }
     }
-    playMsg.innerHTML = "Press any key to play again.";
+
   }
 
-  document.onkeyup = function(event) {
-    playMsg.innerHTML = "";
+  // main
+  $("button").click(function(){
+    debugger;
+    console.log("Begin Main");
     playHangman();
+  });
 
-  }
+
+//  }
 });
